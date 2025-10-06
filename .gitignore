@@ -1,0 +1,23 @@
+# Archivos de Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Binarios y resultados de compilación
+bin/
+obj/
+Debug/
+Release/
+
+# Archivos temporales
+*.tmp
+*.log
+
+# Archivos de sistema
+Thumbs.db
+*.DS_Store
+
+# Configuración local
+appsettings.Development.json
