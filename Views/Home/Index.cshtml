@@ -1,4 +1,4 @@
-﻿@model List<WorkAroundSite.Models.Vacante>
+﻿@model List<WorkAroundSite.Models.VacantesService>
 @{
     ViewData["Title"] = "Inicio";
 }
@@ -52,47 +52,93 @@
         <h2 class="section-title">Vacantes Destacadas</h2>
         <p class="section-subtitle">Explora las mejores oportunidades laborales disponibles</p>
 
-        <div class="carousel-container">
-            <button class="carousel-btn prev-btn" onclick="moveCarousel(-1)">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-            </button>
+        @if (Model != null && Model.Any())
+        {
+            <div class="carousel-container">
+                <button class="carousel-btn prev-btn" onclick="moveCarousel(-1)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
 
-            <div class="carousel-track" id="carouselTrack">
-                @foreach (var vacante in Model)
-                {
-                    <div class="vacante-card">
-                        <div class="card-header">
-                            <div class="company-logo">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
-                                </svg>
+                <div class="carousel-track" id="carouselTrack">
+                    @foreach (var vacante in Model)
+                    {
+                        <div class="vacante-card">
+                            <div class="card-header">
+                                <div class="company-logo">
+                                    @if (!string.IsNullOrEmpty(vacante.Logo))
+                                    {
+                                        <img src="@vacante.Logo" alt="@vacante.NombreEmpresa" />
+                                    }
+                                    else
+                                    {
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
+                                        </svg>
+                                    }
                             </div>
-                            <span class="job-badge">@vacante.Ubicacion</span>
+                            <span class="job-badge">@vacante.TipoTrabajo</span>
                         </div>
                         <h3 class="job-title">@vacante.Titulo</h3>
-                        <p class="company-name">@vacante.Empresa</p>
-                        <p class="job-description">@vacante.Descripcion</p>
-                        <div class="job-tags">
-                            <span class="tag">Ver detalles</span>
+                        <p class="company-name">@vacante.NombreEmpresa</p>
+                        <p class="job-description">
+                            @(vacante.Descripcion.Length > 120
+                                                    ? vacante.Descripcion.Substring(0, 120) + "..."
+                                                    : vacante.Descripcion)
+                    </p>
+
+                    @if (vacante.Habilidades != null && vacante.Habilidades.Any())
+                            {
+                                <div class="job-tags">
+                                    @foreach (var habilidad in vacante.Habilidades.Take(3))
+                                    {
+                                        <span class="tag">@habilidad</span>
+                                    }
+                                    @if (vacante.Habilidades.Count > 3)
+                                    {
+                                        <span class="tag">+@(vacante.Habilidades.Count - 3)</span>
+                                    }
+                                </div>
+                            }
+
+                            <div class="card-footer">
+                                <span class="salary">
+                                    @if (vacante.SalarioMin.HasValue && vacante.SalarioMax.HasValue)
+                                    {
+                                        @($"${vacante.SalarioMin:N0} - ${vacante.SalarioMax:N0}")
+                                    }
+                                    else
+                                    {
+                                        @("Salario a consultar")
+                                    }
+                                </span>
+                                <button class="apply-btn" onclick="location.href='/Home/Details/@vacante.Id'">Ver más</button>
+                            </div>
+
+                            <div class="card-meta">
+                                <span class="location">📍 @vacante.Ubicacion</span>
+                                <span class="applications">👥 @vacante.NumeroAplicaciones aplicaciones</span>
+                            </div>
                         </div>
-                        <div class="card-footer">
-                            <span class="salary">Consultar salario</span>
-                            <button class="apply-btn" onclick="location.href='/Home/Details/@vacante.Id'">Ver más</button>
-                        </div>
-                    </div>
-                }
+                    }
+                </div>
+
+                <button class="carousel-btn next-btn" onclick="moveCarousel(1)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
             </div>
 
-            <button class="carousel-btn next-btn" onclick="moveCarousel(1)">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-            </button>
-        </div>
-
-        <div class="carousel-dots" id="carouselDots"></div>
+            <div class="carousel-dots" id="carouselDots"></div>
+        }
+        else
+        {
+            <div class="no-vacantes">
+                <p>No hay vacantes disponibles en este momento.</p>
+            </div>
+        }
     </div>
 </section>
 
