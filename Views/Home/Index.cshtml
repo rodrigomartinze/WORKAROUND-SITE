@@ -1,10 +1,10 @@
-﻿@{
+﻿@model List<WorkAroundSite.Models.Vacante>
+@{
     ViewData["Title"] = "Inicio";
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/site.css" />
 }
-
 
 <!-- Buscador Fijo Superior (solo en Home) -->
 <div class="top-search-bar">
@@ -30,7 +30,7 @@
             </p>
             <div class="stats">
                 <div class="stat-item">
-                    <span class="stat-number">500+</span>
+                    <span class="stat-number">@Model.Count</span>
                     <span class="stat-label">Vacantes activas</span>
                 </div>
                 <div class="stat-item">
@@ -60,125 +60,29 @@
             </button>
 
             <div class="carousel-track" id="carouselTrack">
-                <!-- Vacante 1 -->
-                <div class="vacante-card">
-                    <div class="card-header">
-                        <div class="company-logo">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
-                            </svg>
+                @foreach (var vacante in Model)
+                {
+                    <div class="vacante-card">
+                        <div class="card-header">
+                            <div class="company-logo">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
+                                </svg>
+                            </div>
+                            <span class="job-badge">@vacante.Ubicacion</span>
                         </div>
-                        <span class="job-badge">Remoto</span>
-                    </div>
-                    <h3 class="job-title">Desarrollador Full Stack</h3>
-                    <p class="company-name">Tech Solutions S.A.</p>
-                    <p class="job-description">Buscamos desarrollador con experiencia en .NET Core, React y bases de datos SQL.</p>
-                    <div class="job-tags">
-                        <span class="tag">.NET</span>
-                        <span class="tag">React</span>
-                        <span class="tag">SQL</span>
-                    </div>
-                    <div class="card-footer">
-                        <span class="salary">$35,000 - $45,000</span>
-                        <button class="apply-btn">Ver más</button>
-                    </div>
-                </div>
-
-                <!-- Vacante 2 -->
-                <div class="vacante-card">
-                    <div class="card-header">
-                        <div class="company-logo">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
-                            </svg>
+                        <h3 class="job-title">@vacante.Titulo</h3>
+                        <p class="company-name">@vacante.Empresa</p>
+                        <p class="job-description">@vacante.Descripcion</p>
+                        <div class="job-tags">
+                            <span class="tag">Ver detalles</span>
                         </div>
-                        <span class="job-badge presencial">Presencial</span>
-                    </div>
-                    <h3 class="job-title">Diseñador UX/UI</h3>
-                    <p class="company-name">Creative Agency</p>
-                    <p class="job-description">Únete a nuestro equipo creativo y diseña experiencias digitales excepcionales.</p>
-                    <div class="job-tags">
-                        <span class="tag">Figma</span>
-                        <span class="tag">Adobe XD</span>
-                        <span class="tag">Prototyping</span>
-                    </div>
-                    <div class="card-footer">
-                        <span class="salary">$30,000 - $40,000</span>
-                        <button class="apply-btn">Ver más</button>
-                    </div>
-                </div>
-
-                <!-- Vacante 3 -->
-                <div class="vacante-card">
-                    <div class="card-header">
-                        <div class="company-logo">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
-                            </svg>
+                        <div class="card-footer">
+                            <span class="salary">Consultar salario</span>
+                            <button class="apply-btn" onclick="location.href='/Home/Details/@vacante.Id'">Ver más</button>
                         </div>
-                        <span class="job-badge hibrido">Híbrido</span>
                     </div>
-                    <h3 class="job-title">Product Manager</h3>
-                    <p class="company-name">Innovate Corp</p>
-                    <p class="job-description">Lidera el desarrollo de productos innovadores y define la estrategia del roadmap.</p>
-                    <div class="job-tags">
-                        <span class="tag">Agile</span>
-                        <span class="tag">Scrum</span>
-                        <span class="tag">Jira</span>
-                    </div>
-                    <div class="card-footer">
-                        <span class="salary">$50,000 - $65,000</span>
-                        <button class="apply-btn">Ver más</button>
-                    </div>
-                </div>
-
-                <!-- Vacante 4 -->
-                <div class="vacante-card">
-                    <div class="card-header">
-                        <div class="company-logo">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
-                            </svg>
-                        </div>
-                        <span class="job-badge">Remoto</span>
-                    </div>
-                    <h3 class="job-title">Data Scientist</h3>
-                    <p class="company-name">Data Analytics Inc</p>
-                    <p class="job-description">Analiza grandes volúmenes de datos y crea modelos predictivos para impulsar decisiones.</p>
-                    <div class="job-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">ML</span>
-                        <span class="tag">TensorFlow</span>
-                    </div>
-                    <div class="card-footer">
-                        <span class="salary">$55,000 - $70,000</span>
-                        <button class="apply-btn">Ver más</button>
-                    </div>
-                </div>
-
-                <!-- Vacante 5 -->
-                <div class="vacante-card">
-                    <div class="card-header">
-                        <div class="company-logo">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
-                            </svg>
-                        </div>
-                        <span class="job-badge presencial">Presencial</span>
-                    </div>
-                    <h3 class="job-title">Marketing Digital</h3>
-                    <p class="company-name">Brand Makers</p>
-                    <p class="job-description">Crea y ejecuta estrategias de marketing digital para aumentar la presencia online.</p>
-                    <div class="job-tags">
-                        <span class="tag">SEO</span>
-                        <span class="tag">SEM</span>
-                        <span class="tag">Analytics</span>
-                    </div>
-                    <div class="card-footer">
-                        <span class="salary">$28,000 - $38,000</span>
-                        <button class="apply-btn">Ver más</button>
-                    </div>
-                </div>
+                }
             </div>
 
             <button class="carousel-btn next-btn" onclick="moveCarousel(1)">
@@ -191,8 +95,6 @@
         <div class="carousel-dots" id="carouselDots"></div>
     </div>
 </section>
-
-
 
 <script>
     let currentSlide = 0;
