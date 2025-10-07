@@ -1,0 +1,169 @@
+/* Navbar Styles - Guarda este archivo en: wwwroot/css/navbar.css */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    background: #8F8F8F;
+    position: relative;
+}
+
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+    button:focus {
+        outline: none;
+        border: none;
+    }
+
+/* Botón Hamburguesa */
+.btn {
+    position: fixed;
+    left: 60px;
+    top: 60px;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 20px;
+    z-index: 1000;
+}
+
+    .btn .icons {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+        .btn .icons svg {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            fill: #fff;
+        }
+
+            .btn .icons svg.close {
+                opacity: 0;
+                transform: translate(-50%, -50%) translateY(125%);
+            }
+
+    .btn .btn--bg {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        background: #21B4FD;
+        border-radius: 25%;
+    }
+
+    button, .btn, .btn:focus, .btn:active {
+        outline: none !important;
+        box-shadow: none !important;
+        border: none !important;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+/* Navegación */
+nav {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #21B4FD;
+    clip-path: circle(0px at 60px 60px);
+    z-index: 999;
+    pointer-events: none;
+}
+
+    nav.active {
+        pointer-events: all;
+    }
+
+    nav ul {
+        margin-left: 20vw;
+    }
+
+        nav ul li {
+            position: relative;
+            list-style: none;
+            padding: 10px 0;
+            cursor: pointer;
+            transform: translateX(-200px);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+            nav ul li span {
+                font-size: 5rem;
+                font-family: "Krona One", sans-serif;
+                font-weight: bold;
+                opacity: 0.35;
+                transition: opacity 0.25s ease;
+                color: #fff;
+            }
+
+            nav ul li::before {
+                content: "";
+                position: absolute;
+                left: -20%;
+                top: 50%;
+                transform: translate(-50%, -50%) translateX(-50%);
+                width: 25%;
+                height: 8px;
+                border-radius: 10px;
+                background: #fff;
+                opacity: 0;
+                transition: opacity 0.25s ease, transform 0.25s ease;
+                pointer-events: none;
+            }
+
+            nav ul li:hover::before {
+                opacity: 1;
+                transform: translate(-50%, -50%) translateX(0);
+            }
+
+            nav ul li:hover span {
+                opacity: 1;
+            }
+
+/* Contenedor que ocupa toda la altura de la ventana */
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* altura mínima = altura de la ventana */
+}
+
+/* Contenido principal ocupa el espacio disponible */
+.main-content {
+    flex: 1; /* empuja el footer hacia abajo si el contenido es corto */
+    padding: 1rem;
+    text-align: center;
+}
+
+/* Footer */
+.footer {
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    background: #f8f9fa;
+    border-top: 1px solid #e5e5e5;
+}

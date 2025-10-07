@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Inicio";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+}
+
+
+<!-- Buscador fijo tipo top bar -->
+<div class="top-search-bar">
+    <div class="search-wrapper">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+        </svg>
+        <input type="text" class="search-input" placeholder="Buscar vacantes, empresas o ubicaciones..." />
+        <button class="search-btn">Buscar</button>
+    </div>
+</div>
+<div class="fwork" >
+    <div class="page-wrapper">
+        <!-- Contenido principal -->
+        <div class="main-content">
+            <h1>Bienvenido a WorkAround</h1>
+            <p>Aprende a crear aplicaciones web con ASP.NET Core.</p>
+        </div>
+    </div>
+</div>
